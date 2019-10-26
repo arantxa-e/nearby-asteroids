@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './App.css';
 
 const Data = ({num, name, url, feetMin, feetMax, hazard, approach, velocity}) => {
     return(
         <div>
-            <h1>{num + 1}. Name: <a href={url} target="_blank" rel="noopener noreferrer">{name}</a></h1>
+            <h2 className="name">{num + 1}. Name: <a href={url} target="_blank" rel="noopener noreferrer">{name}</a></h2>
             <p>
                 Diameter: {Math.round(feetMin)} feet - {Math.round(feetMax)} feet 
                 <br />
@@ -13,14 +14,11 @@ const Data = ({num, name, url, feetMin, feetMax, hazard, approach, velocity}) =>
                 Approach date: {approach}
                 <br />
                 Velocity: {Math.round(velocity)} miles per hour
-                
-
+            
             </p>
         </div>
     )
 }
-
-
 
 class Nasa extends React.Component {
     state = {
