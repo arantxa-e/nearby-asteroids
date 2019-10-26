@@ -11,15 +11,19 @@ class Nasa extends React.Component {
         e.preventDefault()
         this.setState({loading: true})
         fetch('https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=uglaVaRE5v6sq7B6x7tskfi7GPjYpIIfwyH3w90u')
-            .then(response => (
-                response.ok 
-                    ? this.setState({data: response.json()}) 
-                    : new Error(response.statusText)
-                ))
-            .then(
-                console.log(this.state.data),
-                this.setState({loading: false})
-            )
+            .then(response => {
+                if (response.ok) {
+                    return response.json()
+                } else {
+                    throw new Error(response.statusText)
+                }
+            })
+            .then(response => this.setState({data: response}))
+            .catch(error => console.log(error))
+    }
+
+    componentDidUpdate() {
+        console.log(this.state.data)
     }
 
     render() {
