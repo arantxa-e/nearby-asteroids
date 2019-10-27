@@ -423,8 +423,42 @@ there.
   box-sizing: border-box;
 }
 
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1em 0;
+  border-bottom: 1px solid #EEE;
+  background: #FFF;
+  z-index: 999;
+}
+
+nav .brand {
+  float: left;
+}
+
+nav .nav-links {
+  float: right;
+}
+
+nav .nav-links a {
+  display: inline-block;
+}
+
+nav .nav-links a:first-of-type {
+  padding-right: 2em;
+}
+
+.results {
+  color: #777;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  text-align: center;
+}
+
 body {
-  margin: 2.5em 0;
+  margin: 6.5em 0 2.5em 0;
 }
 
 a {
@@ -451,6 +485,15 @@ h2 {
   font-size: 1.5em;
   font-weight: bold;
   text-transform: uppercase;
+}
+
+.user-input {
+  background: #FAFAFA;
+  padding: 1.5em 2em;
+  text-align: center;
+  font-size: 1.3em;
+  border-radius: 3px;
+  margin: 2em 0;
 }
 
 
