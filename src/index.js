@@ -3,37 +3,26 @@ import ReactDOM from 'react-dom';
 import './Normalize.css';
 import './App.css';
 
-const Data = ({num, name, url, feetMin, feetMax, hazard, approach, velocity}) => {
-    let open = ''
-    let close = ''
-
-    if (num % 3 === 0) {
-        open = '<div className="row">';
-    } else if (num % 3 === 2) {
-        close = '</div>'
-    } // not working
-
+const Asteroid = ({num, name, url, feetMin, feetMax, hazard, velocity}) => {
     return(
         <>
-            {open}
-                <div className="one-third column">
-                    <h2 className="name">{num + 1}. <a href={url} target="_blank" rel="noopener noreferrer">{name}</a></h2>
-                    <p>
-                        Diameter: {Math.round(feetMin)} feet - {Math.round(feetMax)} feet 
-                        <br />
-                        Hazard level: {hazard ? 'Hazardous' : 'Not hazardous'}
-                        <br />
-                        Approach date: {approach}
-                        <br />
-                        Velocity: {Math.round(velocity)} miles per hour<br />
-                    </p>
+                <div className="float">
+                    <div className="inner-float">
+                        <h2 className="name">{num + 1}. <a href={url} target="_blank" rel="noopener noreferrer">{name}</a></h2>
+                        <p>
+                            Diameter: {Math.round(feetMin)} feet - {Math.round(feetMax)} feet 
+                            <br />
+                            Hazard level: {hazard ? 'Hazardous' : 'Not hazardous'}
+                            <br />
+                            Velocity: {Math.round(velocity)} miles per hour
+                        </p>
+                    </div>
                 </div>
-            {close}
         </>
     )
 }
 
-class Nasa extends React.Component {
+class Neows extends React.Component {
     state = {
         data: [],
         loading: false,
@@ -103,7 +92,8 @@ class Nasa extends React.Component {
                     <br />
                     {this.state.data.map(
                         (data, i) => 
-                            <Data 
+                        
+                            <Asteroid
                                 key={i}
                                 num={i}
                                 name={data.name} 
@@ -111,9 +101,9 @@ class Nasa extends React.Component {
                                 feetMin={data.estimated_diameter.feet.estimated_diameter_min}
                                 feetMax={data.estimated_diameter.feet.estimated_diameter_max}
                                 hazard={data.is_potentially_hazardous_asteroid}
-                                approach={data.close_approach_data[0].close_approach_date}
                                 velocity={data.close_approach_data[0].relative_velocity.miles_per_hour}
                             />
+
                     )}
                 </div>
             </div>
@@ -121,4 +111,4 @@ class Nasa extends React.Component {
     }
 }
 
-ReactDOM.render(<Nasa />, document.getElementById('root'));
+ReactDOM.render(<Neows />, document.getElementById('root'));

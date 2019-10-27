@@ -416,3 +416,62 @@ there.
 
 /* Larger than Desktop HD */
 @media (min-width: 1200px) {}
+
+/* Original CSS Below */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 2.5em 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+p:last-of-type {
+  margin: 0;
+}
+
+.float {
+  float: left;
+  width: 33%;
+  padding: 0.5em;
+}
+
+.inner-float {
+  border-radius: 3px;
+  border: 1px solid #EEE;
+  padding: 1.5em 2em;
+}
+
+h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+
+@media screen and (max-width: 900px) {
+  .float {
+    width: 50%;
+  }
+
+  .inner-float {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .float {
+    width: 100%;
+  }
+
+  .inner-float {
+    text-align: center;
+  }
+}
+
+
