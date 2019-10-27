@@ -1,22 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './Normalize.css';
 import './App.css';
 
 const Data = ({num, name, url, feetMin, feetMax, hazard, approach, velocity}) => {
+    let open = ''
+    let close = ''
+
+    if (num % 3 === 0) {
+        open = '<div className="row">';
+    } else if (num % 3 === 2) {
+        close = '</div>'
+    } // not working
+
     return(
-        <div>
-            <h2 className="name">{num + 1}. Name: <a href={url} target="_blank" rel="noopener noreferrer">{name}</a></h2>
-            <p>
-                Diameter: {Math.round(feetMin)} feet - {Math.round(feetMax)} feet 
-                <br />
-                Hazard level: {hazard ? 'Hazardous' : 'Not hazardous'}
-                <br />
-                Approach date: {approach}
-                <br />
-                Velocity: {Math.round(velocity)} miles per hour
-            
-            </p>
-        </div>
+        <>
+            {open}
+                <div className="one-third column">
+                    <h2 className="name">{num + 1}. <a href={url} target="_blank" rel="noopener noreferrer">{name}</a></h2>
+                    <p>
+                        Diameter: {Math.round(feetMin)} feet - {Math.round(feetMax)} feet 
+                        <br />
+                        Hazard level: {hazard ? 'Hazardous' : 'Not hazardous'}
+                        <br />
+                        Approach date: {approach}
+                        <br />
+                        Velocity: {Math.round(velocity)} miles per hour<br />
+                    </p>
+                </div>
+            {close}
+        </>
     )
 }
 
@@ -62,23 +75,32 @@ class Nasa extends React.Component {
     
     render() {
         return (
-            <div>
+            <div className="container">
                 <form onSubmit={this.outputDates}>
-                    <h1>Nasa Space Stuff</h1>
-                    Loading: {(this.state.error ? 'Loading...' : 'Done')}
-                    <br />
-                    Error: {(this.state.error ? 'Please select a start and end date then try again' : 'Successful')}
-                    <br />
+                    <h1>Nearby Asteroids</h1>
+                    <p>
+                        This handy little tool displays nearby asteroids based on the 
+                        day you select. Be one of the first to know if a dangerous asteroid 
+                        is heading our way.
+                    </p>
+                    <p>
+                        This site was made using NASA's <a href="https://api.nasa.gov/" target="_blank" rel="noopener noreferrer">
+                        NeoWs (Near Earth Object Web Service)</a>.
+                    </p>
+                    {(this.state.error ? 'Loading...' : '')}
+                    {(this.state.error ? 'Please select a start and end date then try again' : '')}
                     <label>
                         Day
                         <br />
                         <input type="date" onChange={this.collectDay}></input>
                     </label>
                     <br />
-                    <button type="submit">Submit</button>
+                    <button type="submit" className="button-primary">Submit</button>
                 </form>
 
                 <div>
+                    {this.state.data ? `Returned ${this.state.data.length} results` : ''}
+                    <br />
                     {this.state.data.map(
                         (data, i) => 
                             <Data 
@@ -91,7 +113,6 @@ class Nasa extends React.Component {
                                 hazard={data.is_potentially_hazardous_asteroid}
                                 approach={data.close_approach_data[0].close_approach_date}
                                 velocity={data.close_approach_data[0].relative_velocity.miles_per_hour}
-
                             />
                     )}
                 </div>
