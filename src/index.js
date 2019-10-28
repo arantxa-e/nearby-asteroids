@@ -66,8 +66,7 @@ class Neows extends React.Component {
                         </p>
 
                         <div className="user-input">
-                            {(this.state.error ? 'Loading...' : '')}
-                            {(this.state.error ? 'Please select a start and end date then try again' : '')}
+                            {this.state.error && ('Please select a date and then try again')}
                             <label>
                                 Enter Day
                                 <br />
