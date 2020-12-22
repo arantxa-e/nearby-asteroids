@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Asteroid = ({num, name, url, feetMin, feetMax, hazard, velocity}) => {
+const Asteroid = ({num, name, url, feetMin, feetMax, hazard, velocity}) => {
     return(
         <>
             <div className="float">
@@ -18,3 +18,5 @@ export const Asteroid = ({num, name, url, feetMin, feetMax, hazard, velocity}) =
         </>
     )
 }
+
+export default Asteroid;

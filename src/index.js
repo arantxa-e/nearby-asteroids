@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './Normalize.css';
-import './App.css';
-import {Navbar} from './Navbar';
-import {Asteroid} from './Asteroid';
+import Navbar from './components/Navbar';
+import Asteroid from './components/Asteroid';
+import App from './App';
 
 class Neows extends React.Component {
     state = {
@@ -102,4 +101,4 @@ class Neows extends React.Component {
     }
 }
 
-ReactDOM.render(<Neows />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
