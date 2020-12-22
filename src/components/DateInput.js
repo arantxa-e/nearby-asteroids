@@ -44,7 +44,7 @@ const DateInput = () => {
             <div>
                 <div className="results">{data.length >= 1 ? `Returned ${data.length} results` : ''}</div>
                 <br />
-                {/* {data.map(
+                {data.map(
                     (data, i) => 
                     
                         <Asteroid
@@ -58,7 +58,7 @@ const DateInput = () => {
                             velocity={data.close_approach_data[0].relative_velocity.miles_per_hour}
                         />
 
-                )} */}
+                )}
             </div>
         </div>
     )
