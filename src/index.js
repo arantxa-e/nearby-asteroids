@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Navbar from './components/Navbar';
 import Asteroid from './components/Asteroid';
 import App from './App';
 
@@ -48,10 +47,7 @@ class Neows extends React.Component {
     render() {
         return (
             <>
-                <Navbar />
-
                 <div className="container">
-
                     <form onSubmit={this.outputDates}>
                         <h1>Nearby Asteroids</h1>
                         <p>
@@ -63,7 +59,6 @@ class Neows extends React.Component {
                             This site was made using NASA's <a href="https://api.nasa.gov/" target="_blank" rel="noopener noreferrer">
                             NeoWs (Near Earth Object Web Service)</a>.
                         </p>
-
                         <div className="user-input">
                             {this.state.error && ('Please select a date and then try again')}
                             <label>
@@ -73,27 +68,18 @@ class Neows extends React.Component {
                             </label>
                             <button type="submit" className="button-primary">Submit</button>
                         </div>
-
                     </form>
-
                     <div>
                         <div className="results">{this.state.data.length >= 1 ? `Returned ${this.state.data.length} results` : ''}</div>
-                        <br />
-                        {this.state.data.map(
+                        {this.state.data ? this.state.data.map(
                             (data, i) => 
-                            
                                 <Asteroid
                                     key={i}
                                     num={i}
-                                    name={data.name} 
-                                    url={data.nasa_jpl_url}
-                                    feetMin={data.estimated_diameter.feet.estimated_diameter_min}
-                                    feetMax={data.estimated_diameter.feet.estimated_diameter_max}
-                                    hazard={data.is_potentially_hazardous_asteroid}
-                                    velocity={data.close_approach_data[0].relative_velocity.miles_per_hour}
+                                    data={data}
                                 />
-
-                        )}
+                            ) : <div>There's no data</div>
+                        }
                     </div>
                 </div>
             </>

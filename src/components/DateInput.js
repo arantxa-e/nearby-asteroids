@@ -1,66 +1,73 @@
-import React, { useState } from 'react'
-import Asteroid from './Asteroid'
+import React, { useState, useEffect, useContext } from 'react'
+import {useStateWithCallbackLazy } from 'use-state-with-callback';
+import { AsteroidsContext } from '../context/AsteroidsContext'
+import Filters from './Filters'
 
 const DateInput = () => {
-    const [day, setDay] = useState(''); /* stores date used for retrieving */
-    const [loading, setLoading] = useState(false); /* used to display loading spinner */
-    const [data, setData] = useState([]); /* stores data retrieved from NASA API */
+    const [day, setDay] = useStateWithCallbackLazy(''); /* stores date used for retrieving */
     const [error, setError] = useState(false); /* used to display any error messages */
 
-    const collectDay = (e) => { // setting the start date in the state
-        setDay(e.target.value)
+    const { asteroids, setAsteroids, setLoading } = useContext(AsteroidsContext);
+
+    const key = 'uglaVaRE5v6sq7B6x7tskfi7GPjYpIIfwyH3w90u';
+
+    /* fetch data from API */
+    const fetchData = (e) => {
+        setLoading(true);
+        console.log(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${e}&end_date=${e}&api_key=${key}`);
+        fetch(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${e}&end_date=${e}&api_key=${key}`)
+        .then(response => {
+            if (response.ok) {
+                return response.json()
+            } else {
+                throw new Error(response.statusText)
+            }
+        })
+        .then(response => {
+                setAsteroids(response.near_earth_objects[e]);
+                setLoading(false);
+            }
+        )
+        .catch(error => console.log(error))
+    }
+
+    /* retrieves today's data on initial render */
+    useEffect( () => {
+        console.log(asteroids);
+        let date = new Date();
+        let dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 ))
+            .toISOString()
+            .split("T")[0];
+        setDay(dateString, (e) => fetchData(e));
+    }, [])
+
+    /* set chosen date in state */
+    const collectDay = (e) => { 
+        setDay(e.target.value, (e) => fetchData(e));
     }
     
+    /* fetch data on submit */
     const outputDates = (e) => {
         e.preventDefault()
-        let key = 'uglaVaRE5v6sq7B6x7tskfi7GPjYpIIfwyH3w90u';
-        if (day) {
-            fetch(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${day}&end_date=${day}&api_key=${key}`)
-            .then(response => {
-                if (response.ok) {
-                    return response.json()
-                } else {
-                    throw new Error(response.statusText)
-                }
-            })
-            .then(response => setData(response.near_earth_objects[day]))
-            .catch(error => console.log(error))
-        } 
+        fetchData(day);
     }
 
     return (
-        <div>
-          <form onSubmit={outputDates}>
-                <div className="user-input">
-                    {error && ('Please select a date and then try again')}
-                    <label>
-                        Enter Day
-                        <br />
-                        <input type="date" onChange={collectDay}></input>
-                    </label>
-                    <button type="submit" className="button-primary">Submit</button>
+        <>
+            <section className="section select-date">
+                <div className="container">
+                    <form onSubmit={outputDates}>
+                        <div className="user-input py-5">            
+                            {error && ('Please select a date and then try again')}
+                            <div className="results">
+                                There are {asteroids.length} nearby asteroids on <input type="date" onChange={collectDay} value={day}></input>
+                            </div>                  
+                            <Filters />
+                        </div>
+                    </form>
                 </div>
-            </form>
-            <div>
-                <div className="results">{data.length >= 1 ? `Returned ${data.length} results` : ''}</div>
-                <br />
-                {data.map(
-                    (data, i) => 
-                    
-                        <Asteroid
-                            key={i}
-                            num={i}
-                            name={data.name} 
-                            url={data.nasa_jpl_url}
-                            feetMin={data.estimated_diameter.feet.estimated_diameter_min}
-                            feetMax={data.estimated_diameter.feet.estimated_diameter_max}
-                            hazard={data.is_potentially_hazardous_asteroid}
-                            velocity={data.close_approach_data[0].relative_velocity.miles_per_hour}
-                        />
-
-                )}
-            </div>
-        </div>
+            </section>
+        </>
     )
 }
 
