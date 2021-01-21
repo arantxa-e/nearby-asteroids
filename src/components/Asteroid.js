@@ -136,7 +136,7 @@ const Asteroid = ({data}) => {
                             >
                                 <div className="level asteroid-title is-mobile px-5 py-1 m-0">
                                     <div className="level-left"><h2 className="asteroid-name my-5 is-size-4">{data.name}</h2></div>
-                                    <div className="level-right"><FontAwesomeIcon icon={faTimes} onClick={() => closeModal()} /></div>
+                                    <div className="level-right"><FontAwesomeIcon icon={faTimes} size="lg" onClick={() => closeModal()} /></div>
                                 </div>
                                 <div className="columns is-gapless">
                                     <div className="column is-two-fifths asteroid-modal-img">

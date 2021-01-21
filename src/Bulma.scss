@@ -3,7 +3,7 @@
 $font-stack: 'Nunito', sans-serif;
 $dark: #463C4B;
 $text: $dark;
-$link: #AE90BE;
+$link: #946aaa;
 $pale-purple: #F6F3FD;
 $purple: #EBE7F4;
 $gradient: linear-gradient(89.86deg, #312EBD 0.12%, #5C2EBD 100.74%), #312EBD;
@@ -15,8 +15,9 @@ $gradient: linear-gradient(89.86deg, #312EBD 0.12%, #5C2EBD 100.74%), #312EBD;
     font-weight: 300;
 }
 
-body {
+html, body {
     background: #F9F9F9; 
+    height: 100%;
 }
 
 strong {
@@ -44,6 +45,15 @@ strong {
 
     .subtitle {
         color: $white-ter !important;
+
+        a {
+            color: rgba($white-ter, 0.6);
+            font-weight: 600;
+
+            &:hover {
+                color: $white-ter;
+            }
+        }
     }
 }
 
@@ -67,7 +77,6 @@ strong {
         color: $link;
         padding: 1rem;
     }
-
 }
 
 /* filters */
@@ -110,6 +119,12 @@ select {
     }
 }
 
+h2:not(.subtitle) {
+    font-weight: 900;
+    text-transform: uppercase;
+    color: $dark;
+}
+
 .asteroid, .asteroid-modal {
     background: $white;
     border-radius: 15px;
@@ -119,11 +134,6 @@ select {
                 2px 2px 0px #EBE7F4,
                 1px 1px 0px #EBE7F4;
 
-    .asteroid-name {
-        font-weight: 900;
-        text-transform: uppercase;
-        color: $dark;
-    }
 
     .asteroid-size {
         color: rgba(137, 108, 151, 0.54);
@@ -144,6 +154,15 @@ select {
 
         * {
             color: $white !important;
+        }
+    }
+
+    .fa-times {
+        opacity: 0.85;
+
+        &:hover {
+            opacity: 1;
+            cursor: pointer;
         }
     }
 
@@ -222,4 +241,8 @@ select {
     border-radius: 10px;
     margin: 5px;
     background: #FB2C3B;
+}
+
+.fa-satellite {
+    opacity: 0.25;
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './components/Header'
 import DateInput from './components/DateInput'
 import Results from './components/Results'
+import Footer from './components/Footer'
 import { AsteroidsProvider } from './context/AsteroidsContext'
 
 
@@ -14,6 +15,7 @@ function App() {
           <Header />
           <DateInput />
           <Results />
+          <Footer />
         </AsteroidsProvider>
     </>
   );

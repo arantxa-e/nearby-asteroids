@@ -5,16 +5,14 @@ import Filters from './Filters'
 
 const DateInput = () => {
     const [day, setDay] = useStateWithCallbackLazy(''); /* stores date used for retrieving */
-    const [error, setError] = useState(false); /* used to display any error messages */
 
-    const { asteroids, setAsteroids, setLoading } = useContext(AsteroidsContext);
+    const { asteroids, setAsteroids, setLoading, setError } = useContext(AsteroidsContext);
 
     const key = 'uglaVaRE5v6sq7B6x7tskfi7GPjYpIIfwyH3w90u';
 
     /* fetch data from API */
     const fetchData = (e) => {
         setLoading(true);
-        console.log(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${e}&end_date=${e}&api_key=${key}`);
         fetch(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${e}&end_date=${e}&api_key=${key}`)
         .then(response => {
             if (response.ok) {
@@ -28,11 +26,15 @@ const DateInput = () => {
                 setLoading(false);
             }
         )
-        .catch(error => console.log(error))
+        .catch(error => {
+            console.log(error);
+            setLoading(false);
+            setError(true);
+        })
     }
 
     /* retrieves today's data on initial render */
-    useEffect( () => {
+    useEffect(() => {
         console.log(asteroids);
         let date = new Date();
         let dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 ))
@@ -58,7 +60,6 @@ const DateInput = () => {
                 <div className="container">
                     <form onSubmit={outputDates}>
                         <div className="user-input py-5">            
-                            {error && ('Please select a date and then try again')}
                             <div className="results">
                                 There are {asteroids.length} nearby asteroids on <input type="date" onChange={collectDay} value={day}></input>
                             </div>                  

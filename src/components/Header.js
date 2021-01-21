@@ -12,14 +12,14 @@ const Header = () => {
                                 <img src={AsteroidHero} alt="Nearby Asteroids" class="header-img" />
                             </div>
                             <div className="column">
-                                <h1 className="title is-1">
+                                <h1 className="title is-1 mb-5">
                                     Nearby Asteroids
                                 </h1>
                                 <h2 className="subtitle">
                                     This handy little tool displays nearby asteroids based on the 
                                     day you select. Be one of the first to know if a dangerous asteroid 
                                     is heading our way. <br />
-                                        This site was made using NASA's <a href="https://api.nasa.gov/" target="_blank" rel="noopener noreferrer">
+                                    This site was made using NASA's <a href="https://api.nasa.gov/" target="_blank" rel="noopener noreferrer">
                                     NeoWs (Near Earth Object Web Service)</a>.
                                 </h2>
                             </div>
